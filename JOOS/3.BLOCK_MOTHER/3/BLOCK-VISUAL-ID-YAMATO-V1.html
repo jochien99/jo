@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BLOCK-VISUAL-ID-YAMATO-V1</title>
+    <style>
+      :root {
+        --bg: #07080d;
+        --panel: #0f1220;
+        --cyan: #5be9ff;
+        --pink: #ff4fcf;
+        --text: #e9ecff;
+        --muted: #a5add0;
+        --line: #28305a;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+        color: var(--text);
+        background: radial-gradient(circle at 20% 0%, #1a1f3d 0%, transparent 40%),
+          radial-gradient(circle at 80% 15%, #3b0d3b 0%, transparent 35%), var(--bg);
+        line-height: 1.65;
+      }
+
+      .wrap {
+        width: min(1000px, 92vw);
+        margin: 0 auto;
+        padding: 40px 0 64px;
+      }
+
+      .hero {
+        background: linear-gradient(130deg, rgba(91, 233, 255, 0.15), rgba(255, 79, 207, 0.14));
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 28px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(1.4rem, 2.7vw, 2.1rem);
+      }
+
+      .subtitle {
+        color: var(--muted);
+        margin-top: 8px;
+      }
+
+      .quote {
+        margin-top: 18px;
+        padding-left: 14px;
+        border-left: 3px solid var(--pink);
+        color: #ffd7f6;
+        font-style: italic;
+      }
+
+      .grid {
+        display: grid;
+        gap: 18px;
+        margin-top: 22px;
+      }
+
+      @media (min-width: 900px) {
+        .grid.two {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      section {
+        background: rgba(15, 18, 32, 0.82);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 18px 20px;
+      }
+
+      h2 {
+        margin: 0 0 8px;
+        color: var(--cyan);
+        font-size: 1.08rem;
+      }
+
+      ul {
+        margin: 8px 0 0;
+        padding-left: 1.2rem;
+      }
+
+      li + li {
+        margin-top: 6px;
+      }
+
+      code,
+      .pill {
+        display: inline-block;
+        background: rgba(91, 233, 255, 0.1);
+        border: 1px solid rgba(91, 233, 255, 0.35);
+        border-radius: 999px;
+        padding: 2px 10px;
+        color: #c5f5ff;
+        font-size: 0.85rem;
+      }
+
+      pre {
+        margin: 10px 0 0;
+        white-space: pre-wrap;
+        background: #090c18;
+        border: 1px solid #222a50;
+        border-radius: 10px;
+        padding: 12px;
+        overflow-wrap: anywhere;
+        font-size: 0.9rem;
+      }
+
+      .kpi {
+        display: grid;
+        gap: 10px;
+      }
+
+      .kpi div {
+        padding: 10px 12px;
+        background: rgba(255, 79, 207, 0.1);
+        border: 1px solid rgba(255, 79, 207, 0.25);
+        border-radius: 10px;
+      }
+
+      footer {
+        margin-top: 28px;
+        color: var(--muted);
+        font-size: 0.88rem;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <header class="hero">
+        <h1>BLOCK-VISUAL-ID-YAMATO-V1</h1>
+        <p class="subtitle">賽博少女封面插畫識別模組（角色中心 × 機車敘事 × 雜誌版式 × 粉藍黑對比）</p>
+        <p class="quote">一張封面，一場城市邊境的公路電影。</p>
+      </header>
+
+      <div class="grid two">
+        <section>
+          <h2>摘要</h2>
+          <p>
+            本模組定義「賽博街頭少女 × 機車封面 × 雜誌風格」的構圖與版式語法，可輸出 AI
+            生成封面級 Prompt（含 negative 與變體）及封面排版規格（safe area / 字階 /
+            標題位置），適用於角色插畫快速生成、品牌封面設計與 IP 視覺開發。
+          </p>
+        </section>
+        <section>
+          <h2>核心語法元素</h2>
+          <ul>
+            <li><span class="pill">HeroPoseAnchor</span> 姿態定中心</li>
+            <li><span class="pill">GearLoadout</span> 裝備機能設定</li>
+            <li><span class="pill">MagazineGrid</span> 雜誌版式網格</li>
+            <li><span class="pill">PinkBlueBlackPalette</span> 粉藍黑配色引擎</li>
+            <li><span class="pill">TypeHierarchy</span> 字階層級</li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="grid two">
+        <section>
+          <h2>Inputs</h2>
+          <ul>
+            <li><code>theme.txt</code>：本期主題 / 情緒</li>
+            <li><code>title.txt</code>：主標 / 副標 / 期數</li>
+            <li><code>character.yml</code>：age, vibe, outfit, face, pose</li>
+            <li><code>vehicle.yml</code>：type, mods, decals</li>
+            <li><code>setting.yml</code>：city, weather, neon, props</li>
+            <li><code>format.yml</code>：size, orientation, safe_margin, logo_pos</li>
+          </ul>
+        </section>
+        <section>
+          <h2>功能管線</h2>
+          <ul>
+            <li><code>ComposeCoverSpec(inputs)</code> → <code>cover_spec.json</code></li>
+            <li><code>GeneratePrompt(cover_spec, model)</code> → <code>prompt.txt + negative.txt</code></li>
+            <li><code>GenerateLayoutGuide(format)</code> → <code>layout_guide.md</code></li>
+            <li><code>GenerateVariants(prompt, n)</code> → <code>variants/*.txt</code></li>
+            <li><code>QAReadability(image_or_desc)</code> → <code>qa_report.md</code></li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="grid two">
+        <section>
+          <h2>Prompt Template</h2>
+          <pre>[POSITIVE]
+"cyber street girl hero pose centered, futuristic motorcycle, neo-nippon street, neon signage, 90s anime magazine cover composition, dynamic perspective, high-detail illustration, pink and cyan contrast, deep blacks framing, reflective materials, rain mist, rim light, bold title typography space reserved, cover-safe margins, cinematic grain, magazine cover" + (theme/title/character/vehicle/setting vars)
+
+[NEGATIVE]
+"blurry, low-res, extra limbs, distorted hands, unreadable text, logo cropped, messy layout, flat lighting, muddy colors, watermark, signature"</pre>
+        </section>
+        <section>
+          <h2>Outputs</h2>
+          <ul>
+            <li><code>cover_spec.json</code></li>
+            <li><code>prompt.txt</code></li>
+            <li><code>negative.txt</code></li>
+            <li><code>layout_guide.md</code></li>
+            <li><code>variants/*.txt</code></li>
+            <li><code>qa_report.md</code></li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="grid two">
+        <section>
+          <h2>KPI</h2>
+          <div class="kpi">
+            <div>主視覺聚焦得分 ≥ 0.85（角色臉 / 姿態清晰）</div>
+            <div>標題可讀性 ≥ 0.90（留白區完整 + 對比足）</div>
+            <div>風格一致性 ≥ 0.85（粉藍黑 + 街頭霓虹 + 90s 封面語法）</div>
+            <div>生成一次命中率 ≥ 0.60（首輪即可用）</div>
+          </div>
+        </section>
+        <section>
+          <h2>Risk & Mitigation</h2>
+          <ul>
+            <li>AI 生成文字不可控導致標題亂碼 → 先生成無字版本 + 保留字區，再後製排版。</li>
+            <li>配色過飽和造成資訊噪音 → 以黑色框架建立深度，限制高飽和面積比例。</li>
+            <li>姿態不穩導致畫面崩壞 → 先定 HeroPoseAnchor 的 silhouette 再加細節。</li>
+          </ul>
+        </section>
+      </div>
+
+      <footer>來源：250614 賽博插畫風格封裝｜CI: v1.1</footer>
+    </main>
+  </body>
+</html>
