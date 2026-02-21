@@ -1,0 +1,37 @@
+BLOCK-VISUAL-ID-YAMATO-V1｜賽博少女封面插畫識別模組（角色中心×機車敘事×雜誌版式×粉藍黑對比）
+
+【摘要】
+本模組定義「賽博街頭少女 × 機車封面 × 雜誌風格」的構圖與版式語法，輸出可直接用於 AI 生成的封面級 Prompt（含 negative 與變體），以及封面排版規格（safe area/字階/標題位置），支援角色插畫快速生成、品牌封面設計與 IP 視覺開發；核心語法為「姿態定中心、文字強化主題、粉＋藍對比配色、黑色作深度框架」，融合 Neo-Nippon 街頭感與 90 年代動漫封面美學。
+
+【金句】
+一張封面，一場城市邊境的公路電影。
+
+【元素】
+HeroPoseAnchor(姿態定中心) × GearLoadout(裝備機能設定) × MagazineGrid(雜誌版式網格) × PinkBlueBlackPalette(粉藍黑配色引擎) × TypeHierarchy(字階層級)
+
+【場景】
+封面插畫設計×AI角色生成提示語×IP視覺包×雜誌/專輯封面×社群主視覺模板
+
+【來源】
+250614 賽博插畫風格封裝
+
+【Inputs】
+theme.txt(本期主題/情緒)｜title.txt(主標/副標/期數)｜character.yml(age,vibe,outfit,face,pose)｜vehicle.yml(type,mods,decals)｜setting.yml(city,weather,neon,props)｜format.yml(size,orientation,safe_margin,logo_pos)
+
+【功能】
+ComposeCoverSpec(inputs)→cover_spec.json(構圖/道具/光/色/字階)｜GeneratePrompt(cover_spec,model)→prompt.txt+negative.txt｜GenerateLayoutGuide(format)→layout_guide.md｜GenerateVariants(prompt,n)→variants/*.txt｜QAReadability(image_or_desc)→qa_report.md
+
+【PromptTemplate】
+[POSITIVE] “cyber street girl hero pose centered, futuristic motorcycle, neo-nippon street, neon signage, 90s anime magazine cover composition, dynamic perspective, high-detail illustration, pink and cyan contrast, deep blacks framing, reflective materials, rain mist, rim light, bold title typography space reserved, cover-safe margins, cinematic grain, magazine cover” + (theme/title/character/vehicle/setting vars)
+[NEGATIVE] “blurry, low-res, extra limbs, distorted hands, unreadable text, logo cropped, messy layout, flat lighting, muddy colors, watermark, signature”
+
+【Outputs】
+cover_spec.json｜prompt.txt｜negative.txt｜layout_guide.md｜variants/*.txt｜qa_report.md
+
+【KPI】
+主視覺聚焦得分≥0.85（角色臉/姿態清晰）｜標題可讀性≥0.90（留白區完整+對比足）｜風格一致性≥0.85（粉藍黑+街頭霓虹+90s封面語法）｜生成一次命中率≥0.60（首輪即可用）
+
+【Risk】
+⚠️ AI 生成文字不可控導致標題亂碼；策略：先生成無字版本+保留字區，再後製排版。
+⚠️ 配色過飽和造成資訊噪音；策略：黑色框架作深度、限制高飽和面積比例。
+⚠️ 姿態不穩導致畫面崩；策略：HeroPoseAnchor 先定 silhouette 再加細節。
